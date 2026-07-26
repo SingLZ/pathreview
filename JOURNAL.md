@@ -17,3 +17,17 @@ I reviewed the issue description, relevant files, and estimated effort. The issu
 **Setup confirmation:** [x] App runs locally at localhost:5173
 
 **Cohort ledger:** [x] Issue added to cohort ledger
+
+## Week 8 — Reproduction & solution planning
+
+**Reproduction commit link:** https://github.com/SingLZ/pathreview/commit/6af19678b07fbc7a7d6189a0de65fcd473d79b00
+
+**Reproduction summary:**
+I reproduced the issue with a focused unit test that ingests identical repository metadata twice for the same profile. The embedding processor was invoked twice instead of once, and the second result was not marked as skipped.
+
+**PLAN.md link:** https://github.com/SingLZ/pathreview/blob/fix/6-prevent-duplicate-embeddings/PLAN.md
+
+**Walkthrough video (recommended):** Not recorded.
+
+**Blockers or open questions:**
+I still need to confirm whether changed content from the same repository should create a new ingestion or replace the previous repository vectors. I also need to verify all callers before converting the pipeline’s database operations to use the project’s asynchronous SQLAlchemy session.
