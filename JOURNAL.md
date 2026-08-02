@@ -45,3 +45,19 @@ I will run the project-wide checks, document any pre-existing failures, open a d
 
 **Blockers:**
 The repository contains pre-existing type-checking failures outside the files changed for issue #6. I am validating the affected files independently and confirming that this contribution does not introduce additional failures.
+
+### Check-in 2 (end of week)
+
+**PR link:** https://github.com/ascherj/pathreview/pull/576
+
+**Branch:** `fix/6-prevent-duplicate-embeddings`
+
+**What you built:**
+I implemented persistent deduplication for repository ingestion. The pipeline now checks a stable source ID before generating embeddings and ignores changes to volatile repository metrics.
+
+**Tests added or updated:**
+I added `tests/unit/test_ingestion_pipeline_deduplication.py`, which covers identical repository ingestion, changed star counts, and meaningful repository content changes.
+
+**Self-review confirmation:** [x] make check introduces no new failures  [x] make test-unit introduces no new failures
+
+**Draft PR feedback received from:** N/A
