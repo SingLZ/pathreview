@@ -31,3 +31,17 @@ I reproduced the issue with a focused unit test that ingests identical repositor
 
 **Blockers or open questions:**
 I still need to confirm whether changed content from the same repository should create a new ingestion or replace the previous repository vectors. I also need to verify all callers before converting the pipeline’s database operations to use the project’s asynchronous SQLAlchemy session.
+
+
+## Week 9 — Solution building & PR submission
+
+### Check-in 1 (mid-week)
+
+**Current progress:**
+I implemented persistent ingestion deduplication using a unique source identifier stored in the `ingested_sources` table. I replaced the placeholder duplicate lookup and recording logic with asynchronous SQLAlchemy operations, normalized repository metadata so volatile metrics do not trigger re-ingestion, and converted the Week 8 reproduction into regression tests.
+
+**Next steps:**
+I will run the project-wide checks, document any pre-existing failures, open a draft pull request, and request feedback from a peer or mentor. After addressing relevant feedback, I will mark the pull request ready for review and complete Check-in 2.
+
+**Blockers:**
+The repository contains pre-existing type-checking failures outside the files changed for issue #6. I am validating the affected files independently and confirming that this contribution does not introduce additional failures.
