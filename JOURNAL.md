@@ -61,3 +61,34 @@ I added `tests/unit/test_ingestion_pipeline_deduplication.py`, which covers iden
 **Self-review confirmation:** [x] make check introduces no new failures  [x] make test-unit introduces no new failures
 
 **Draft PR feedback received from:** N/A
+
+## Week 10 — Iteration & reflection
+
+### Reviewer feedback
+
+**Feedback received:** [x] Yes  [ ] No — still awaiting review
+
+**Summary of feedback:**
+A reviewer asked how I derived my implementation because it was similar to another design for the same issue.
+
+**How you responded:**
+I explained that I traced the existing ingestion pipeline, found the mismatch between the asynchronous database session and the synchronous duplicate-check logic, and found that successful ingestions were not actually being persisted. I also explained why I used stable repository fields for deduplication and how I tested the behavior.
+
+---
+
+### Reflection
+
+**What was harder than you expected?**
+Understanding how one change affected multiple parts of the codebase was harder than I expected. Fixing the duplicate check was not just changing one query. I also had to understand the async SQLAlchemy session, how ingestion records were stored, how source IDs were generated, and how the tests needed to change after the pipeline became asynchronous.
+
+**What did you learn about working in a large codebase?**
+I learned that a change that looks small from an issue description can affect several connected files. I had to inspect the database model, ingestion pipeline, migrations, and tests before making the fix. I also learned to keep my PR focused and check the diff carefully so unrelated file changes do not get included.
+
+**How did AI tools help — and where did they fall short?**
+AI was most useful for helping me trace unfamiliar code, understand the async database flow, debug test and lint errors, and think through edge cases for deduplication. However, I still needed to verify the suggestions against the actual repository. AI could suggest an implementation quickly, but it could not replace understanding the existing architecture or checking whether the final changes really fit the project.
+
+**What would you do differently if you started over?**
+I would spend more time mapping all callers and related database code before beginning implementation. I would also check `git diff` more frequently so unrelated changes are caught earlier, and I would establish the exact deduplication rules before writing the final implementation.
+
+**What are you most proud of from this module?**
+I am most proud that I went from reproducing the bug with a failing test to implementing a fix with regression tests that cover both duplicates and legitimate repository changes. I understand the ingestion workflow much better now than when I selected the issue.
